@@ -21,6 +21,13 @@ Upstream provenance, as recorded by that project: the robot description was
 generated with onshape-to-robot from an Onshape CAD model, and the STS3215
 motor parameters were adapted from the Open Duck Mini project.
 
+DERIVED FROM, but not redistributed here:
+  gpudad/so101_pick_cube (https://huggingface.co/datasets/gpudad/so101_pick_cube),
+  by gpudad, licensed under Apache-2.0. Every camera pose,
+  focal length, light and material colour in these scenes was fitted by
+  measuring against frames from that dataset. No frames, episodes or other
+  data from it are included in this bundle.
+
 The MuJoCo scene files (scene_*.xml), the camera and lighting fits, the floor
 textures and the documentation in this bundle are original work of this
 project and are released under the same Apache-2.0 License.

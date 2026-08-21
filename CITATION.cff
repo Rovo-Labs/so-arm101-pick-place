@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this world, please cite it as below."
+title: "gpudad_pickcube_world_reconstructed: a MuJoCo reconstruction of the GPU-DAD SO-101 pick-cube scene"
+authors:
+  - family-names: Gallimore
+    given-names: Kilas
+    affiliation: Rovo Labs
+  - family-names: Rasheed
+    given-names: Armaan
+    affiliation: Rovo Labs
+version: 1.0.0
+date-released: 2026-08-21
+license: Apache-2.0
+repository-code: "https://github.com/kilas-rovo/gpudad-pickcube-world-draft"
+abstract: >-
+  A frozen, standalone MuJoCo scene reconstructing the environment in
+  gpudad/so101_pick_cube. Ships one free-roam scene plus three
+  colour-matched to that dataset's front, overhead and wrist cameras.
+keywords:
+  - robotics
+  - mujoco
+  - sim-to-real
+  - so-101
+  - manipulation

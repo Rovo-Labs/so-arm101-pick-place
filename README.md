@@ -26,6 +26,7 @@ A frozen MuJoCo scene. Open a scene file in any MuJoCo viewer.
 | `floor_checker.png` | floor texture for scene_freeroam.xml, scene_overhead.xml, scene_wrist.xml | -- |
 | `floor_checker_front.png` | floor texture for scene_front.xml | -- |
 | `LICENSE` | Apache-2.0 | -- |
+| `CITATION.cff` | how to cite this work | -- |
 | `NOTICE` | attribution and our modifications | -- |
 
 ## Why there is more than one scene
