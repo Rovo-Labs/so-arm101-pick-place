@@ -1,0 +1,26 @@
+Copyright 2026 Rovo Labs
+
+This product includes software and 3D assets developed by the
+so101-nexus-core project (version 0.3.12),
+licensed under the Apache-2.0 License.
+
+UNMODIFIED, redistributed verbatim:
+  assets/*.stl -- all 13 SO-101 meshes, byte-identical to upstream.
+
+MODIFIED by this project:
+  so101_new_calib.xml -- the robot base was shifted to match GPU-DAD's
+  table layout, and the wrist camera was re-posed and re-lensed to match
+  GPU-DAD's wrist footage. Diff against upstream:
+
+  - <body name="base" pos="0 0 0" quat="1 0 0 0" childclass="so101_new_calib">
+  + <body name="base" pos="-0.1024 0.0 0" quat="1 0 0 0" childclass="so101_new_calib">
+  - <camera name="wrist_cam" pos="0 0.04 -0.04" euler="-0.5 0.0 6.28"  fovy="75"/>
+  + <camera name="wrist_cam" pos="1.2e-05 0.039668 -0.010513" quat="0.957439 -0.288637 0.000129 6.7e-05" fovy="91.13"/>
+
+Upstream provenance, as recorded by that project: the robot description was
+generated with onshape-to-robot from an Onshape CAD model, and the STS3215
+motor parameters were adapted from the Open Duck Mini project.
+
+The MuJoCo scene files (scene_*.xml), the camera and lighting fits, the floor
+textures and the documentation in this bundle are original work of this
+project and are released under the same Apache-2.0 License.
