@@ -85,9 +85,12 @@ gripper highest.
 - **Success** means the cube came to rest inside the bin. Every episode was confirmed
   from its settled video rather than from an instantaneous check at the moment of
   release — a cube still in the air above the bin has not landed in it yet.
+<!-- FLAGGED FOR REVIEW: checkpoint names are not chosen yet. Do NOT publish the
+     internal tags -- they leak world revisions and dataset naming. -->
 - **Checkpoints:** both policies are published on Hugging Face, not in this
   repository: [CROSS-DOMAIN CHECKPOINT](INSERT LINK WHEN READY) and
   [SAME-DOMAIN CHECKPOINT](INSERT LINK WHEN READY).
+<!-- END FLAGGED -->
 - **Source:** the 50 training and 50 held-out episodes come from
   [gpudad/so101_pick_cube](https://huggingface.co/datasets/gpudad/so101_pick_cube),
   and are disjoint.
