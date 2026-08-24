@@ -9,14 +9,14 @@ measured against frames from that dataset.
 
 ![The original scene from all three cameras](figures/original_3views.png)
 
-*Episode 44, frame 16 — the last frame before the
-gripper touches anything.*
+*Episode 44, frame 16 — from the original
+[gpudad/so101_pick_cube](https://huggingface.co/datasets/gpudad/so101_pick_cube) data set*
 
 ## The Replicated Scene
 
-The same episode and frame, rendered here:
-
 ![The reconstruction from all three cameras](figures/reconstruction_3views.png)
+
+*The same episode and frame, rendered here, in our replicated world*
 
 A frozen MuJoCo scene. Open a scene file in any MuJoCo viewer.
 
