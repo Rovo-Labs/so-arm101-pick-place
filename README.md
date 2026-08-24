@@ -27,7 +27,14 @@ A frozen MuJoCo scene. Open a scene file in any MuJoCo viewer.
 | `floor_checker_front.png` | floor texture for scene_front.xml | -- |
 | `LICENSE` | Apache-2.0 | -- |
 | `CITATION.cff` | how to cite this work | -- |
+| `RESULTS.md` | closed-loop and open-loop fidelity measurements | -- |
+| `figures/` | figures referenced by RESULTS.md | -- |
 | `NOTICE` | attribution and our modifications | -- |
+
+## How close is it?
+
+A policy trained on GPU-DAD's own images scores **25/50** in this world. A policy
+trained on this reconstruction scores **25/50**. See [RESULTS.md](RESULTS.md).
 
 ## Why there is more than one scene
 
