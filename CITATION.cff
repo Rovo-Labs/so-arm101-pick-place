@@ -11,7 +11,7 @@ authors:
 version: 1.0.0
 date-released: 2026-08-21
 license: Apache-2.0
-repository-code: "https://github.com/kilas-rovo/gpudad-pickcube-world-draft"
+repository-code: "https://github.com/Rovo-Labs/gpu-dad-clone"
 abstract: >-
   A frozen, standalone MuJoCo scene reconstructing the environment in
   gpudad/so101_pick_cube. Ships one free-roam scene plus three
