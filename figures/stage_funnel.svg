@@ -3,6 +3,7 @@
 <title id="fT">Stage funnel, both policies</title>
 <desc id="fD">Cumulative episodes reaching each stage out of fifty, for the GPU-DAD-trained and reconstruction-trained policies. The two stay within one to two episodes of each other at every stage; the largest single loss is between grasped and lifted.</desc>
 <style>.fs-lab{fill:#54606E;font-size:12px}.fs-val{fill:#11161B;font-size:12px;font-weight:600}.fs-key{fill:#8792A0;font-size:11px;letter-spacing:.08em}.fs-b{fill:#2C6BB0}.fs-s{fill:#2C6BB0;opacity:.42}.fs-grid{stroke:#E7EBF0;stroke-width:1}</style>
+<rect id="bg" x="0" y="0" width="760" height="318" fill="#FFFFFF"/>
 <line x1="260.4" y1="24" x2="260.4" y2="280" class="fs-grid"/>
 <text x="260" y="18" class="fs-key" text-anchor="middle">10</text>
 <line x1="370.8" y1="24" x2="370.8" y2="280" class="fs-grid"/>
