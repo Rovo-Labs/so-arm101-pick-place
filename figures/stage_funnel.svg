@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 760 352" role="img" aria-labelledby="fT fD" class="funnelsvg" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 760 318" role="img" aria-labelledby="fT fD" class="funnelsvg" xmlns="http://www.w3.org/2000/svg">
 <title id="fT">Stage funnel, both policies</title>
 <desc id="fD">Cumulative episodes reaching each stage out of fifty, for the GPU-DAD-trained and reconstruction-trained policies. The two stay within one to two episodes of each other at every stage; the largest single loss is between grasped and lifted.</desc>
-<style>.fs-lab{fill:#54606E;font-size:12px}.fs-val{fill:#11161B;font-size:12px;font-weight:600}.fs-key{fill:#8792A0;font-size:11px;letter-spacing:.08em}.fs-b{fill:#2C6BB0}.fs-s{fill:#2C6BB0;opacity:.42}.fs-det{fill:#AB2318;opacity:.4}.fs-fin{fill:#2C6BB0}.fs-grid{stroke:#E7EBF0;stroke-width:1}</style>
-<line x1="260.4" y1="24" x2="260.4" y2="322" class="fs-grid"/>
+<style>.fs-lab{fill:#54606E;font-size:12px}.fs-val{fill:#11161B;font-size:12px;font-weight:600}.fs-key{fill:#8792A0;font-size:11px;letter-spacing:.08em}.fs-b{fill:#2C6BB0}.fs-s{fill:#2C6BB0;opacity:.42}.fs-grid{stroke:#E7EBF0;stroke-width:1}</style>
+<line x1="260.4" y1="24" x2="260.4" y2="280" class="fs-grid"/>
 <text x="260" y="18" class="fs-key" text-anchor="middle">10</text>
-<line x1="370.8" y1="24" x2="370.8" y2="322" class="fs-grid"/>
+<line x1="370.8" y1="24" x2="370.8" y2="280" class="fs-grid"/>
 <text x="371" y="18" class="fs-key" text-anchor="middle">20</text>
-<line x1="481.2" y1="24" x2="481.2" y2="322" class="fs-grid"/>
+<line x1="481.2" y1="24" x2="481.2" y2="280" class="fs-grid"/>
 <text x="481" y="18" class="fs-key" text-anchor="middle">30</text>
-<line x1="591.6" y1="24" x2="591.6" y2="322" class="fs-grid"/>
+<line x1="591.6" y1="24" x2="591.6" y2="280" class="fs-grid"/>
 <text x="592" y="18" class="fs-key" text-anchor="middle">40</text>
-<line x1="702.0" y1="24" x2="702.0" y2="322" class="fs-grid"/>
+<line x1="702.0" y1="24" x2="702.0" y2="280" class="fs-grid"/>
 <text x="702" y="18" class="fs-key" text-anchor="middle">50</text>
 <text x="142" y="18" class="fs-key" text-anchor="end">EPISODES</text>
+<rect x="150" y="291" width="11" height="9" class="fs-b" rx="1"/>
+<text x="167" y="299" class="fs-lab">trained on GPU-DAD images</text>
+<rect x="330" y="291" width="11" height="9" class="fs-s" rx="1"/>
+<text x="347" y="299" class="fs-lab">trained on this reconstruction</text>
 <text x="138" y="54.9" class="fs-lab" text-anchor="end">reached</text>
 <rect x="150" y="36.7" width="552.0" height="12.5" class="fs-b" rx="1"/>
 <rect x="150" y="52.5" width="552.0" height="12.5" class="fs-s" rx="1"/>
@@ -34,19 +38,14 @@
 <rect x="150" y="177.7" width="375.4" height="12.5" class="fs-s" rx="1"/>
 <text x="521.3" y="173.3" class="fs-val">33</text>
 <text x="532.4" y="189.2" class="fs-val">34</text>
-<text x="138" y="221.7" class="fs-lab" text-anchor="end">dropped in</text>
+<text x="138" y="221.7" class="fs-lab" text-anchor="end">released in</text>
 <rect x="150" y="203.5" width="331.2" height="12.5" class="fs-b" rx="1"/>
 <rect x="150" y="219.4" width="342.2" height="12.5" class="fs-s" rx="1"/>
 <text x="488.2" y="215.0" class="fs-val">30</text>
 <text x="499.2" y="230.9" class="fs-val">31</text>
-<text x="138" y="263.4" class="fs-lab" text-anchor="end">clean · detector</text>
-<rect x="150" y="245.2" width="309.1" height="12.5" class="fs-det" rx="1"/>
-<rect x="150" y="261.1" width="298.1" height="12.5" class="fs-det" rx="1"/>
-<text x="466.1" y="256.8" class="fs-val">28</text>
-<text x="455.1" y="272.6" class="fs-val">27</text>
-<text x="138" y="305.1" class="fs-lab" text-anchor="end">clean · hand-checked</text>
-<rect x="150" y="287.0" width="276.0" height="12.5" class="fs-fin" rx="1"/>
-<rect x="150" y="302.8" width="276.0" height="12.5" class="fs-fin" rx="1"/>
-<text x="433.0" y="298.5" class="fs-val">25</text>
-<text x="433.0" y="314.3" class="fs-val">25</text>
+<text x="138" y="263.4" class="fs-lab" text-anchor="end">settled in the bin</text>
+<rect x="150" y="245.2" width="276.0" height="12.5" class="fs-b" rx="1"/>
+<rect x="150" y="261.1" width="276.0" height="12.5" class="fs-s" rx="1"/>
+<text x="433.0" y="256.8" class="fs-val">25</text>
+<text x="433.0" y="272.6" class="fs-val">25</text>
 </svg>

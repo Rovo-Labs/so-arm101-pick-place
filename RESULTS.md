@@ -41,7 +41,7 @@ it off the table, carrying it, and releasing it into the bin.
 | grasped it | 48 | 50 |
 | lifted it off the table | 37 | 35 |
 | transported it to the bin | 33 | 34 |
-| released it in | 30 | 31 |
+| released in | 30 | 31 |
 | **settled in the bin** | **25** | **25** |
 
 This matters more than the final number alone. The two policies track each other
