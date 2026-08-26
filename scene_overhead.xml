@@ -1,6 +1,6 @@
 <!-- scene_overhead.xml -- Colour-matched to GPU-DAD's OVERHEAD camera.
      Fidelity: MAE 4.60 against the real footage.
-     Floor tile size and phase are fitted to GPU-DAD's overhead lens. Use scene_freeroam.xml to move around.
+     Floor tile size and phase are fitted to GPU-DAD's overhead lens.
      Needs: so101_new_calib.xml, assets/, floor_checker.png -->
 <mujoco model="gpudad_pickcube">
   <compiler angle="radian" meshdir="assets"/>
