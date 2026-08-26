@@ -1,5 +1,11 @@
 # gpudad_pickcube_world_reconstructed -- static world
 
+This repository is our clone of the environment behind
+[gpudad/so101_pick_cube](https://huggingface.co/datasets/gpudad/so101_pick_cube),
+GPU-DAD's SO-101 pick-and-place data set. We rebuilt that scene in MuJoCo, and
+used the replica to generate a 1,000-episode pick-and-place dataset of our own:
+[DATASET NAME](INSERT LINK WHEN READY). Details below.
+
 ## The original
 
 This is a MuJoCo replica of the scene in
