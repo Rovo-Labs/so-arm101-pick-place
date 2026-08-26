@@ -1,6 +1,6 @@
 <!-- scene_front.xml -- Colour-matched to GPU-DAD's FRONT camera.
      Fidelity: MAE 10.58 against the real footage.
-     The floor is raised 55mm and widened to 6km to frame that one view. Correct head-on, wrong from anywhere else -- use scene_freeroam.xml to move around.
+     The floor is raised 55mm and widened to 6km to frame that one view. Correct head-on, wrong from anywhere else.
      Needs: so101_new_calib.xml, assets/, floor_checker_front.png -->
 <mujoco model="gpudad_pickcube">
   <compiler angle="radian" meshdir="assets"/>

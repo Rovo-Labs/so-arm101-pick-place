@@ -1,6 +1,6 @@
 <!-- scene_wrist.xml -- Colour-matched to GPU-DAD's WRIST camera.
      Fidelity: MAE 12.87 against the real footage.
-     Deliberately dark and warm to match GPU-DAD's wrist lens, which sits inside the gripper. Use scene_freeroam.xml to move around.
+     Deliberately dark and warm to match GPU-DAD's wrist lens, which sits inside the gripper.
      Needs: so101_new_calib.xml, assets/, floor_checker.png -->
 <mujoco model="gpudad_pickcube">
   <compiler angle="radian" meshdir="assets"/>

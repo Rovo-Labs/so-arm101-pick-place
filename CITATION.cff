@@ -14,8 +14,8 @@ license: Apache-2.0
 repository-code: "https://github.com/Rovo-Labs/gpu-dad-clone"
 abstract: >-
   A frozen, standalone MuJoCo scene reconstructing the environment in
-  gpudad/so101_pick_cube. Ships one free-roam scene plus three
-  colour-matched to that dataset's front, overhead and wrist cameras.
+  gpudad/so101_pick_cube. Ships three scenes, each colour-matched to that
+  dataset's front, overhead and wrist camera.
 keywords:
   - robotics
   - mujoco
