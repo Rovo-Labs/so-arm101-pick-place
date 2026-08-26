@@ -28,6 +28,20 @@ A frozen MuJoCo scene. Open a scene file in any MuJoCo viewer.
 
     python -m mujoco.viewer --mjcf=scene_front.xml
 
+## The dataset
+
+A companion dataset of **1,000 episodes** of the pick-and-place cube task,
+recorded entirely in this world. Same task, same scene, same renders in every
+episode -- the only thing that varies is what drives the arm.
+
+| episodes | controller |
+| --- | --- |
+| 100 | GPU-DAD's recorded action data, replayed in our replicated world |
+| 400 | a SmolVLA policy trained on GPU-DAD's own data, acting in our replicated world |
+| 500 | our inverse-kinematics expert |
+
+[DATASET NAME](INSERT LINK WHEN READY)
+
 ## Files
 
 | file | what it is | MAE vs real |
@@ -42,20 +56,6 @@ MAE is mean absolute pixel error, 0-255 per channel, against real GPU-DAD frames
 
 A policy trained on GPU-DAD's own images scores **25/50** in this world. A policy
 trained on this reconstruction scores **25/50**. See [RESULTS.md](RESULTS.md).
-
-## The dataset
-
-A companion dataset of **1,000 episodes** of the pick-and-place cube task,
-recorded entirely in this world. Same task, same scene, same renders in every
-episode -- the only thing that varies is what drives the arm.
-
-| episodes | controller |
-| --- | --- |
-| 100 | GPU-DAD's recorded action data, replayed in our replicated world |
-| 400 | a SmolVLA policy trained on GPU-DAD's own data, acting in our replicated world |
-| 500 | our inverse-kinematics expert |
-
-[DATASET NAME](INSERT LINK WHEN READY)
 
 ## Why there is more than one scene
 
