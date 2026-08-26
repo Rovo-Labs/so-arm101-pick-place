@@ -30,6 +30,8 @@ A frozen MuJoCo scene. Open a scene file in any MuJoCo viewer.
 | `scene_overhead.xml` | Colour-matched to GPU-DAD's OVERHEAD camera. | 4.60 |
 | `scene_wrist.xml` | Colour-matched to GPU-DAD's WRIST camera. | 12.87 |
 
+MAE is mean absolute pixel error, 0-255 per channel, against real GPU-DAD frames. Lower is closer.
+
 ## How close is our Replicated world to the original?
 
 A policy trained on GPU-DAD's own images scores **25/50** in this world. A policy
@@ -65,5 +67,3 @@ If you use this world, please cite it:
 Machine-readable metadata lives in [CITATION.cff](CITATION.cff) -- GitHub's
 "Cite this repository" button reads it directly. Released under Apache-2.0;
 see `LICENSE` and `NOTICE`.
-
-MAE is mean absolute pixel error, 0-255 per channel, against real GPU-DAD frames. Lower is closer.
