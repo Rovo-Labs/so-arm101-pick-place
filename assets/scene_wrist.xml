@@ -1,16 +1,16 @@
-<!-- scene_overhead.xml -- Colour-matched to GPU-DAD's OVERHEAD camera.
-     Fidelity: MAE 4.60 against the real footage.
-     Floor tile size and phase are fitted to GPU-DAD's overhead lens.
-     Needs: so101_new_calib.xml, assets/, floor_checker.png -->
+<!-- scene_wrist.xml -- Colour-matched to GPU-DAD's WRIST camera.
+     Fidelity: MAE 12.87 against the real footage.
+     Deliberately dark and warm to match GPU-DAD's wrist lens, which sits inside the gripper.
+     Needs (all alongside this file in assets/): so101_new_calib.xml, the 13 STL meshes, floor_checker.png -->
 <mujoco model="gpudad_pickcube">
-  <compiler angle="radian" meshdir="assets"/>
+  <compiler angle="radian" meshdir="."/>
   <option timestep="0.002" gravity="0 0 -9.81" cone="elliptic" noslip_iterations="3"/>
   <include file="so101_new_calib.xml"/>
   <statistic center="0.0958 0.0 0.0003" extent="0.6327"/>
 
   <visual>
-    <headlight diffuse="0.3090 0.3090 0.3090" ambient="0.7171 0.8515 1.0751" specular="0 0 0"/>
-    <map haze="0.0" znear="0.030820"/>
+    <headlight diffuse="0.4182 0.4182 0.4182" ambient="0.3848 0.3720 0.3790" specular="0 0 0"/>
+    <map haze="0.0" znear="0.030820" zfar="100.0"/>
     <global azimuth="160" elevation="-20" offwidth="512" offheight="512"/>
   </visual>
 
@@ -18,20 +18,20 @@
     <texture type="skybox" builtin="gradient" rgb1="0.30 0.43 0.58" rgb2="0.08 0.12 0.18" width="512" height="512"/>
     <texture type="2d" name="checker" file="floor_checker.png"/>
     
-    <material name="checker" texture="checker" texuniform="true" texrepeat="5.3242 5.3242" rgba="0.8872 0.7956 0.6902 1" reflectance="0.0" specular="0" shininess="0"/>
-    <material name="table" rgba="0.7299 0.6653 0.5338 1" reflectance="0.0" specular="0" shininess="0"/>
+    <material name="checker" texture="checker" texuniform="true" texrepeat="5.8600 5.8600" rgba="0.6075 0.5761 0.5646 1" reflectance="0.0" specular="0" shininess="0"/>
+    <material name="table" rgba="0.5029 0.4973 0.3974 1" reflectance="0.0" specular="0" shininess="0"/>
     <material name="cube_mat" rgba="0.7828 0.2139 0.1959 1" specular="0" shininess="0"/>
-    <material name="bin_blue" rgba="0.5065 0.6625 0.5734 1" specular="0" shininess="0"/>
+    <material name="bin_blue" rgba="0.3367 0.5095 0.5449 1" specular="0" shininess="0"/>
     <material name="target_green" rgba="0.10 0.72 0.35 1" reflectance="0.0" specular="0" shininess="0"/>
   </asset>
 
   <worldbody>
     <light pos="0.0974 0.0500 8.1000" dir="0 0 -1" directional="false" castshadow="true"
-           diffuse="0.3039 0.3039 0.3039" specular="0 0 0"/>
-    <light pos="0.6086 0.0003 0.1900" dir="-0.9659 0.0000 -0.2588" directional="true" castshadow="true" cutoff="70" exponent="1" diffuse="0.0520 0.0520 0.0520" specular="0 0 0"/>
-    <light pos="0.09737 -0.4000 0.0778" dir="0.0000 0.9816 -0.1908" directional="true" castshadow="true" diffuse="0.0256 0.0256 0.0256" specular="0 0 0"/>
+           diffuse="1.1020 1.1020 1.1020" specular="0 0 0"/>
+    <light pos="0.6086 0.0003 0.1900" dir="-0.9659 0.0000 -0.2588" directional="true" castshadow="true" cutoff="70" exponent="1" diffuse="0.2567 0.2567 0.2567" specular="0 0 0"/>
+    <light pos="0.09737 -0.4000 0.0778" dir="0.0000 0.9816 -0.1908" directional="true" castshadow="true" diffuse="0.3004 0.3004 0.3004" specular="0 0 0"/>
     <light pos="0.0974 0.0000 0.3000" dir="-0.6040 -0.1623 -0.7803" directional="true" castshadow="false" diffuse="0.0000 0.0000 0.0000" specular="0 0 0"/>
-    <geom name="floor" type="box" pos="-0.09090 0.00035 -0.3560" size="300 300 0.05" material="checker"/>
+    <geom name="floor" type="box" pos="-0.0677 0.0120 -0.3560" size="300 300 0.05" material="checker"/>
 
     <geom name="table" type="box" material="table"
           pos="0.09737 0.00032 -0.0200"
@@ -48,7 +48,7 @@
 
     <body name="cube" pos="0.0976 0.0 0.0304">
       <freejoint/>
-      <geom name="cube" type="box" size="0.02 0.02 0.02" rgba="0.920000 0.200000 0.190000 1.000000"
+      <geom name="cube" type="box" size="0.02 0.02 0.02" rgba="1.000000 0.265100 0.216000 1.000000"
             contype="1" conaffinity="1" condim="4" priority="1"
             density="500" friction="1.2 0.05 0.005"
             solref="0.004 1" solimp="0.99 0.995 0.0005"/>

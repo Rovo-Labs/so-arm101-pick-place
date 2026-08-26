@@ -26,7 +26,7 @@ measured against frames from that dataset.
 
 A frozen MuJoCo scene. Open a scene file in any MuJoCo viewer.
 
-    python -m mujoco.viewer --mjcf=scene_front.xml
+    python -m mujoco.viewer --mjcf=assets/scene_front.xml
 
 ## The dataset
 
@@ -46,9 +46,9 @@ episode -- the only thing that varies is what drives the arm.
 
 | file | what it is | MAE vs real |
 | --- | --- | --- |
-| `scene_front.xml` | Colour-matched to GPU-DAD's FRONT camera. | 10.58 |
-| `scene_overhead.xml` | Colour-matched to GPU-DAD's OVERHEAD camera. | 4.60 |
-| `scene_wrist.xml` | Colour-matched to GPU-DAD's WRIST camera. | 12.87 |
+| `assets/scene_front.xml` | Colour-matched to GPU-DAD's FRONT camera. | 10.58 |
+| `assets/scene_overhead.xml` | Colour-matched to GPU-DAD's OVERHEAD camera. | 4.60 |
+| `assets/scene_wrist.xml` | Colour-matched to GPU-DAD's WRIST camera. | 12.87 |
 
 MAE is mean absolute pixel error, 0-255 per channel, against real GPU-DAD frames. Lower is closer.
 

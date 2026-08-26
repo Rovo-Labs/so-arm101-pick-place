@@ -8,9 +8,11 @@ UNMODIFIED, redistributed verbatim:
   assets/*.stl -- all 13 SO-101 meshes, byte-identical to upstream.
 
 MODIFIED by this project:
-  so101_new_calib.xml -- the robot base was shifted to match GPU-DAD's
-  table layout, and the wrist camera was re-posed and re-lensed to match
-  GPU-DAD's wrist footage. Diff against upstream:
+  assets/so101_new_calib.xml -- the robot base was shifted to match
+  GPU-DAD's table layout, the wrist camera was re-posed and re-lensed to
+  match GPU-DAD's wrist footage, and meshdir was repointed from "assets"
+  to "." because this file now sits inside assets/ alongside the meshes.
+  Diff against upstream:
 
   - <body name="base" pos="0 0 0" quat="1 0 0 0" childclass="so101_new_calib">
   + <body name="base" pos="-0.1024 0.0 0" quat="1 0 0 0" childclass="so101_new_calib">
@@ -28,6 +30,6 @@ DERIVED FROM, but not redistributed here:
   measuring against frames from that dataset. No frames, episodes or other
   data from it are included in this bundle.
 
-The MuJoCo scene files (scene_*.xml), the camera and lighting fits, the floor
+The MuJoCo scene files (assets/scene_*.xml), the camera and lighting fits, the floor
 textures and the documentation in this bundle are original work of this
 project and are released under the same Apache-2.0 License.
