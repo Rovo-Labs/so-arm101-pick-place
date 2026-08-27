@@ -38,14 +38,6 @@ front, overhead and wrist -- side by side.
 | `uv run run.py --window` | an interactive window |
 | `uv run run.py --help` | lists all options |
 
-Already have MuJoCo? Drop the `uv run` and use Python directly:
-
-    python run.py
-
-Dependencies are declared in `pyproject.toml`, and `uv.lock` pins the exact
-versions this world was rendered with. `uv run` reads both for you; to build the
-environment yourself first, run `uv sync`.
-
 The scenes are plain MJCF, so you can skip `run.py` altogether and open one in
 MuJoCo's own viewer:
 
