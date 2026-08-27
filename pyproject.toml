@@ -1,0 +1,24 @@
+[project]
+name = "gpudad-pickcube-world"
+version = "1.0.0"
+description = "A MuJoCo reconstruction of the GPU-DAD SO-101 pick-cube scene."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+dependencies = [
+    # mujoco 3.12 shifts the floor checker texture, which moves every rendered
+    # pixel. The upper bound is what keeps run.py's output identical to
+    # figures/reconstruction_3views.png -- do not relax it without re-checking
+    # the render against that figure.
+    "mujoco>=3.10,<3.12",
+    "pillow>=10.1",
+    "glfw>=2.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/Rovo-Labs/so-arm101-pick-place"
+
+# This repository is a world, not a Python package: there is nothing to import
+# and nothing to build. Without this, uv tries to build it as a wheel and fails.
+[tool.uv]
+package = false

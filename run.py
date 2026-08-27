@@ -1,12 +1,3 @@
-#!/usr/bin/env -S uv run --script
-# /// script
-# requires-python = ">=3.10"
-# dependencies = [
-#     "mujoco>=3.10,<3.12",
-#     "pillow>=10.1",
-#     "glfw>=2.6",
-# ]
-# ///
 """Look at the reconstructed GPU-DAD pick-cube world.
 
     uv run run.py            writes world.png -- the three camera views
