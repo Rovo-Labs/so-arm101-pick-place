@@ -44,6 +44,14 @@ Already have MuJoCo? Drop the `uv run` and use Python directly:
 
 Needs Python 3.10+ with `mujoco>=3.10,<3.12`, `pillow` and `glfw`.
 
+The scenes are plain MJCF, so you can skip `run.py` altogether and open one in
+MuJoCo's own viewer:
+
+    python -m mujoco.viewer --mjcf=assets/scene_front.xml
+
+That gives you the scene as-loaded, without the recorded arm and cube pose that
+`run.py` applies.
+
 ## The Dataset
 
 A companion dataset of **1,000 episodes** of the pick-and-place cube task,
