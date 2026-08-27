@@ -486,7 +486,7 @@ def build_parser() -> argparse.ArgumentParser:
                 "examples:\n"
                 "  uv run run.py                  all three views -> world.png\n"
                 "  uv run run.py --camera front   just the front view\n"
-                "  uv run run.py --camera free    an orbit view of the whole table\n"
+                "  uv run run.py --camera free    one wider shot of the whole table\n"
                 "  uv run run.py --window         fly around it\n"
             ),
         )
@@ -498,12 +498,15 @@ def _add_arguments(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
         "--camera",
         type=parse_camera,
         default="all",
-        help="all, free, front, overhead or wrist (default: all)",
+        help=(
+            "which view to save: all, front, overhead, wrist, or free for "
+            "one wider shot of the whole table (default: all)"
+        ),
     )
     parser.add_argument(
         "--window",
         action="store_true",
-        help="open an interactive window instead of writing a file",
+        help="open a live window to move around in, instead of saving a picture",
     )
     parser.add_argument(
         "--no-open",
