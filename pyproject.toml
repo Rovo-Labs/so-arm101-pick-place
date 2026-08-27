@@ -1,5 +1,5 @@
 [project]
-name = "gpudad-pickcube-world"
+name = "so-arm101-pick-place"
 version = "1.0.0"
 description = "A MuJoCo reconstruction of the GPU-DAD SO-101 pick-cube scene."
 readme = "README.md"
@@ -18,7 +18,18 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/Rovo-Labs/so-arm101-pick-place"
 
-# This repository is a world, not a Python package: there is nothing to import
-# and nothing to build. Without this, uv tries to build it as a wheel and fails.
+# There is deliberately no [build-system] table: this repository is a world and
+# one script, not an importable package, so there is no wheel to build. uv then
+# treats it as a virtual project -- it installs the dependencies above into
+# .venv and never tries to install the repository itself. Adding a
+# [build-system] is the classic trap for asset repos: uv would try to build a
+# wheel and fail. package = false changes nothing today; it is here so that
+# adding a [build-system] later cannot silently turn this into a package.
 [tool.uv]
 package = false
+
+# Read only by `pip install .`, which falls back to setuptools. Without it,
+# setuptools mistakes assets/ and figures/ for Python packages and refuses with
+# "Multiple top-level packages discovered in a flat-layout".
+[tool.setuptools]
+py-modules = []
