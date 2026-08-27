@@ -49,7 +49,8 @@ That gives you the scene as-loaded, without the recorded arm and cube pose that
 ## The Dataset
 
 A companion dataset of **1,000 episodes** of the pick-and-place cube task,
-recorded entirely in this replicated environment. 
+recorded entirely in this replicated environment. Every episode is a
+success -- the cube ends up in the bin.
 
 | episodes | controller |
 | --- | --- |
@@ -61,7 +62,7 @@ recorded entirely in this replicated environment.
 
 ## Environment Files
 
-| file | what it is | MAE vs real |
+| file | what it is | MAE vs real (0-255) |
 | --- | --- | --- |
 | `assets/scene_front.xml` | Color-matched to GPU-DAD's FRONT camera. | 10.58 |
 | `assets/scene_overhead.xml` | Color-matched to GPU-DAD's OVERHEAD camera. | 4.60 |
@@ -69,14 +70,9 @@ recorded entirely in this replicated environment.
 
 MAE is mean absolute pixel error, 0-255 per channel, against real GPU-DAD frames. Lower is closer.
 
-## How close is our Replicated Environment to the original?
-
-A policy trained on GPU-DAD's own images scores **25/50** in this world. A policy
-trained on this reconstruction scores **25/50**. See [RESULTS.md](RESULTS.md).
-
 ## Why there is More than One Environment File
 
-The three scenes differ in paint and lamps only -- geometry and physics are
+The three scenes differ in paint and lighting only -- geometry and physics are
 identical across all of them. To run a policy, drive ONE scene as the physics truth and mirror its state into the other two, rendering each camera view from the scene that was color-matched to it.
 
 ## How to Cite
