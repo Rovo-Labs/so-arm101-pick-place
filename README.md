@@ -31,12 +31,15 @@ measured against frames from that dataset.
 Writes `world.png`: one moment in the scene seen from all three cameras --
 front, overhead and wrist -- side by side.
 
+Everything below saves a picture, except `--window`, which opens a live window
+you can move around in.
+
 | command | what you get |
 | --- | --- |
-| `uv run run.py` | all three views -> `world.png` |
-| `uv run run.py --camera front` | one view (`front`, `overhead`, `wrist`) |
-| `uv run run.py --camera free` | an orbit view of the whole table |
-| `uv run run.py --window` | an interactive window |
+| `uv run run.py` | all three views, saved to `world.png` |
+| `uv run run.py --camera front` | just one view (`front`, `overhead`, `wrist`) |
+| `uv run run.py --camera free` | one wider shot showing the whole table |
+| `uv run run.py --window` | a live window -- drag to look around |
 | `uv run run.py --help` | every option |
 
 ## The dataset
