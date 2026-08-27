@@ -26,49 +26,18 @@ measured against frames from that dataset.
 
 ### Look at it
 
-One command, no setup:
-
     uv run run.py
 
-That writes `world.png` -- the three calibrated camera views, side by side --
-and opens it. [uv](https://docs.astral.sh/uv/) fetches Python and MuJoCo for
-you on the first run, so there is nothing to install first. It takes a few
-seconds the first time and is instant after that. It needs no display, so it
-works the same over SSH, in a container, or in CI.
-
-`world.png` is the picture above. Not "similar to" -- the same pixels:
-
-    uv run run.py --check
-
-    checking against figures/reconstruction_3views.png
-      FRONT     identical
-      OVERHEAD  identical
-      WRIST     identical
-    run.py reproduces the published figure exactly (0 of 299568 pixels differ).
-
-`run.py` puts the world in the state recorded at episode 44, frame 16 -- the
-arm's recorded joint angles, with the cube and bin at the positions fitted for
-this world -- and renders each camera from the scene it was colour-matched to.
-There is no keyframe in the XML, so those numbers live at the top of `run.py`
-if you want to look at a different state.
+Writes `world.png`: one moment in the scene seen from all three cameras --
+front, overhead and wrist -- side by side.
 
 | command | what you get |
 | --- | --- |
-| `uv run run.py` | all three calibrated views -> `world.png` |
-| `uv run run.py --check` | proof the render matches the figure above |
+| `uv run run.py` | all three views -> `world.png` |
 | `uv run run.py --camera front` | one view (`front`, `overhead`, `wrist`) |
 | `uv run run.py --camera free` | an orbit view of the whole table |
-| `uv run run.py --window` | an interactive window -- drag to orbit, scroll to zoom, Tab to cycle cameras |
-| `uv run run.py --size 2048` | bigger, for slides |
-| `uv run run.py --out shot.png` | write somewhere else |
-
-Run `uv run run.py --help` for the full list. `--window` needs a display and a
-graphics driver; every other command runs anywhere.
-
-Prefer to drive it yourself? The scenes are plain MJCF and open in any MuJoCo
-viewer:
-
-    python -m mujoco.viewer --mjcf=assets/scene_front.xml
+| `uv run run.py --window` | an interactive window |
+| `uv run run.py --help` | every option |
 
 ## The dataset
 
@@ -108,10 +77,10 @@ identical across all of them. To run a policy, drive ONE scene as the physics tr
 
 If you use this world, please cite it:
 
-    Rasheed, A., Gallimore, K., Subbiah, V. and Johnson, E. (2026).
+    Rasheed A., Gallimore K., Subbiah V., Johnson E. (2026).
     gpudad_pickcube_world_reconstructed: a MuJoCo reconstruction of the
-    GPU-DAD SO-101 pick-cube scene (v1.0.0). Rovo Labs.
-    https://github.com/Rovo-Labs/gpu-dad-clone
+    GPU-DAD SO-101 pick-cube scene (version 1.0.0).
+    URL: https://github.com/Rovo-Labs/gpu-dad-clone
 
 Machine-readable metadata lives in [CITATION.cff](CITATION.cff) -- GitHub's
 "Cite this repository" button reads it directly. Released under Apache-2.0;

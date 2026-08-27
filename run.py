@@ -9,9 +9,8 @@
 # ///
 """Look at the reconstructed GPU-DAD pick-cube world.
 
-    uv run run.py            writes world.png -- the three calibrated views
+    uv run run.py            writes world.png -- the three camera views
     uv run run.py --window   opens an interactive window instead
-    uv run run.py --check    proves the render matches the published figure
 
 uv fetches Python and MuJoCo on the first run, so there is nothing to install.
 Get uv from https://docs.astral.sh/uv/  --  or use any Python 3.10+:
@@ -52,7 +51,7 @@ logger = logging.getLogger("run")
 
 try:
     import mujoco
-    from PIL import Image, ImageChops, ImageDraw, ImageFont
+    from PIL import Image, ImageDraw, ImageFont
 except ImportError as error:  # pragma: no cover -- the no-dependencies path
     logger.error("run.py needs MuJoCo and Pillow, and they are not installed here.")
     logger.error(f"  ({error})")
@@ -75,7 +74,7 @@ except ImportError as error:  # pragma: no cover -- the no-dependencies path
 
 HERE = Path(__file__).resolve().parent
 ASSETS = HERE / "assets"
-FIGURE = HERE / "figures" / "reconstruction_3views.png"
+OUTPUT = "world.png"
 
 # Each camera was colour-matched to exactly one scene; the scenes differ in
 # paint and lamps only (README, "Why there is more than one scene"). run.py
@@ -94,6 +93,14 @@ CAMERA_ALIASES = {"wrist_cam": "wrist"}
 # overhead camera, so run.py never offers it. Do not "fix" its absence.
 PLACEHOLDER_CAMERAS = frozenset({"overhead_dummy"})
 
+# The scenes declare offwidth/offheight 512, and mujoco.Renderer raises above
+# that rather than clamping, so this is the size everything renders at.
+SIZE = 512
+# Sheet proportions, taken from figures/reconstruction_3views.png so the two
+# can be held side by side.
+GUTTER = 16
+BAND = 36
+
 # --------------------------------------------------------------------------
 # The state below is GPU-DAD episode 44, frame 16 -- the frame shown in
 # figures/reconstruction_3views.png. It is recorded data, not a pose invented
@@ -104,9 +111,8 @@ PLACEHOLDER_CAMERAS = frozenset({"overhead_dummy"})
 #               placement refinement (worst mean centroid error 0.66 px).
 #   POSE_BIN  = the container placement from the same refinement. The bin is a
 #               mocap body, so it moves via data.mocap_pos, never qpos.
-# Rendered at 512x512 and downscaled to 316 with LANCZOS, these reproduce the
-# published figure bit for bit -- `uv run run.py --check` proves it. If you
-# edit the scene XMLs, --check is your regression test.
+# Together these reproduce the published figure exactly. Edit them to look at
+# a different state -- there is no keyframe in the XML to fall back on.
 # See NOTICE for the provenance of POSE_ARM.
 # --------------------------------------------------------------------------
 POSE_ARM = (
@@ -119,13 +125,6 @@ POSE_ARM = (
 )
 POSE_CUBE = (0.1330528530145393, 0.0597912330345744, 0.02, 1.0, 0.0, 0.0, 0.0)
 POSE_BIN = (0.09120804242790284, -0.01489297435760058, 0.0)
-
-DEFAULT_SIZE = 512
-MIN_SIZE = 64
-MAX_SIZE = 4096
-FIGURE_PANEL = 316
-FIGURE_GUTTER = 10
-FIGURE_BAND = 22
 
 
 def die(problem: str, remedy: str = "") -> NoReturn:
@@ -172,8 +171,7 @@ def apply_pose(model: mujoco.MjModel, data: mujoco.MjData) -> None:
     if worst < -0.001:
         logger.warning(
             f"warning: the posed state overlaps the scene by {-worst * 1000:.1f} mm. "
-            "The world XML may have changed since POSE_* were fitted; "
-            "run `uv run run.py --check`."
+            "The world XML may have changed since POSE_* were fitted."
         )
 
 
@@ -202,58 +200,50 @@ def mirror_state(
 def render(
     model: mujoco.MjModel,
     data: mujoco.MjData,
-    size: int,
     camera: str | None,
 ) -> Image.Image:
-    """Render one square image, raising the offscreen buffer if it is too small."""
-    # The scenes declare offwidth/offheight 512. Renderer() RAISES above that
-    # rather than clamping, so patch the compiled model -- never the XML. max()
-    # so a small --size cannot shrink the buffer.
-    model.vis.global_.offwidth = max(model.vis.global_.offwidth, size)
-    model.vis.global_.offheight = max(model.vis.global_.offheight, size)
+    """Render one square image at SIZE."""
+    # Widen the compiled model's offscreen buffer if a scene ever declares a
+    # smaller one -- never the XML, which is read-only here.
+    model.vis.global_.offwidth = max(model.vis.global_.offwidth, SIZE)
+    model.vis.global_.offheight = max(model.vis.global_.offheight, SIZE)
     try:
-        with mujoco.Renderer(model, height=size, width=size) as renderer:
+        with mujoco.Renderer(model, height=SIZE, width=SIZE) as renderer:
             if camera is None:
                 renderer.update_scene(data)
             else:
                 renderer.update_scene(data, camera=camera)
             return Image.fromarray(renderer.render())
     except (ValueError, mujoco.FatalError) as error:
-        die(
-            f"the renderer refused a {size}x{size} image: {error}",
-            f"Try a smaller --size; {DEFAULT_SIZE}x{DEFAULT_SIZE} works everywhere.",
-        )
+        die(f"the renderer refused a {SIZE}x{SIZE} image: {error}")
 
 
-def render_calibrated(size: int) -> dict[str, Image.Image]:
+def render_calibrated() -> dict[str, Image.Image]:
     """Render each calibrated view from the scene it was colour-matched to."""
-    truth_model, truth_data = load(TRUTH_SCENE)
+    _, truth_data = load(TRUTH_SCENE)
     panels: dict[str, Image.Image] = {}
     for name in SHEET_ORDER:
         filename, camera = SCENES[name]
         model, data = load(filename)
         mirror_state(source=truth_data, model=model, data=data)
-        panels[name] = render(model=model, data=data, size=size, camera=camera)
-    del truth_model
+        panels[name] = render(model=model, data=data, camera=camera)
     return panels
 
 
-def compose_sheet(panels: dict[str, Image.Image], size: int) -> Image.Image:
+def compose_sheet(panels: dict[str, Image.Image]) -> Image.Image:
     """Lay the three views out side by side, mirroring the published figure."""
-    gutter = max(6, round(size * FIGURE_GUTTER / FIGURE_PANEL))
-    band = max(14, round(size * FIGURE_BAND / FIGURE_PANEL))
-    font_px = max(10, round(band * 0.5))
+    font_px = max(10, round(BAND * 0.5))
     try:
         font = ImageFont.load_default(size=font_px)
     except TypeError:  # pragma: no cover -- Pillow < 10.1
         font = ImageFont.load_default()
-    sheet = Image.new("RGB", (size * 3 + gutter * 2, band + size), (255, 255, 255))
+    sheet = Image.new("RGB", (SIZE * 3 + GUTTER * 2, BAND + SIZE), (255, 255, 255))
     draw = ImageDraw.Draw(sheet)
     for index, name in enumerate(SHEET_ORDER):
-        left = index * (size + gutter)
-        sheet.paste(panels[name], (left, band))
+        left = index * (SIZE + GUTTER)
+        sheet.paste(panels[name], (left, BAND))
         draw.text(
-            (left, round((band - font_px) / 2)),
+            (left, round((BAND - font_px) / 2)),
             name.upper(),
             fill=(51, 51, 51),
             font=font,
@@ -261,26 +251,13 @@ def compose_sheet(panels: dict[str, Image.Image], size: int) -> Image.Image:
     return sheet
 
 
-def resolve_out(raw: str | None) -> Path:
-    """Work out where to write, creating the parent directory if needed."""
-    target = Path(raw).expanduser() if raw else Path("world.png")
-    if not target.is_absolute():
-        target = Path.cwd() / target
-    # normpath, NOT resolve() -- do not rewrite the user's path through symlinks
-    target = Path(os.path.normpath(target))
-    if target.is_dir() or target.suffix == "":
-        target = target / "world.png"
-    try:
-        target.parent.mkdir(parents=True, exist_ok=True)
-    except OSError as error:
-        die(
-            f"cannot create {target.parent}: {error}",
-            "Pick another folder with --out.",
-        )
+def output_path() -> Path:
+    """Return where world.png goes, failing clearly if it cannot be written."""
+    target = Path.cwd() / OUTPUT
     if not os.access(target.parent, os.W_OK):
         die(
             f"cannot write to {target.parent}: Permission denied",
-            "Pick another folder with --out.",
+            "Run run.py from a folder you can write to.",
         )
     return target
 
@@ -298,60 +275,6 @@ def reveal(path: Path, allowed: bool) -> None:
         return
     with contextlib.suppress(OSError, subprocess.SubprocessError):
         subprocess.run([opener, str(path)], timeout=5, check=False)
-
-
-def do_check() -> None:
-    """Compare a fresh render against the published figure, pixel for pixel."""
-    if not FIGURE.is_file():
-        die(
-            f"cannot find {FIGURE}.",
-            "Run run.py from inside the repository.",
-        )
-    reference = Image.open(FIGURE).convert("RGB")
-    expected = (
-        FIGURE_PANEL * 3 + FIGURE_GUTTER * 2,
-        FIGURE_BAND + FIGURE_PANEL,
-    )
-    if reference.size != expected:
-        die(
-            f"{FIGURE.name} is {reference.size[0]}x{reference.size[1]}, "
-            f"expected {expected[0]}x{expected[1]}.",
-            "The published figure has changed; POSE_* and --check need refitting.",
-        )
-    logger.info(f"checking against {FIGURE.relative_to(HERE)}")
-    panels = render_calibrated(size=DEFAULT_SIZE)
-    failures = 0
-    for index, name in enumerate(SHEET_ORDER):
-        left = index * (FIGURE_PANEL + FIGURE_GUTTER)
-        crop = reference.crop(
-            (left, FIGURE_BAND, left + FIGURE_PANEL, FIGURE_BAND + FIGURE_PANEL)
-        )
-        got = panels[name].resize(
-            (FIGURE_PANEL, FIGURE_PANEL), Image.Resampling.LANCZOS
-        )
-        diff = ImageChops.difference(got, crop)
-        if diff.getbbox() is None:
-            logger.info(f"  {name.upper():<9} identical")
-        else:
-            worst = max(channel.getextrema()[1] for channel in diff.split())
-            logger.info(
-                f"  {name.upper():<9} differs -- largest channel difference {worst}"
-            )
-            failures += 1
-    total = FIGURE_PANEL * FIGURE_PANEL * len(SHEET_ORDER)
-    if failures:
-        logger.error(f"FAILED: the render no longer matches {FIGURE.name}.")
-        logger.error(
-            "Most likely the MuJoCo version changed: 3.12 moves the floor texture, "
-            "which is"
-        )
-        logger.error(
-            "why run.py pins mujoco<3.12. Otherwise assets/ or POSE_* has been edited."
-        )
-        raise SystemExit(1)
-    logger.info(
-        f"run.py reproduces the published figure exactly (0 of {total} pixels differ)."
-    )
 
 
 def die_no_display(problem: str, errors: list[str]) -> NoReturn:
@@ -534,24 +457,6 @@ def run_window() -> None:
     glfw.terminate()
 
 
-def positive_square(raw: str) -> int:
-    """Parse --size, explaining why renders are square rather than WxH."""
-    text = raw.strip().lower()
-    if "x" in text or "," in text:
-        die(
-            f"--size takes one number, not '{raw}'.",
-            "Renders are square: MuJoCo's field of view is vertical, so the "
-            "calibrated cameras are only correct at 1:1. Try --size 1024.",
-        )
-    try:
-        value = int(text)
-    except ValueError:
-        die(f"--size takes a number, not '{raw}'.")
-    if not MIN_SIZE <= value <= MAX_SIZE:
-        die(f"--size must be between {MIN_SIZE} and {MAX_SIZE}, got {value}.")
-    return value
-
-
 def parse_camera(raw: str) -> str:
     """Normalise --camera and reject the uncalibrated placeholder."""
     text = raw.strip().lower()
@@ -572,47 +477,33 @@ def parse_camera(raw: str) -> str:
 
 def build_parser() -> argparse.ArgumentParser:
     """Return the argument parser, epilog and all."""
-    parser = argparse.ArgumentParser(
-        prog="run.py",
-        description=__doc__,
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=(
-            "examples:\n"
-            "  uv run run.py                  all three views -> world.png\n"
-            "  uv run run.py --camera free    an orbit view of the whole table\n"
-            "  uv run run.py --size 2048      bigger, for slides\n"
-            "  uv run run.py --window         fly around it\n"
-            "  uv run run.py --check          prove it matches the figure\n"
-        ),
+    return _add_arguments(
+        argparse.ArgumentParser(
+            prog="run.py",
+            description=__doc__,
+            formatter_class=argparse.RawDescriptionHelpFormatter,
+            epilog=(
+                "examples:\n"
+                "  uv run run.py                  all three views -> world.png\n"
+                "  uv run run.py --camera front   just the front view\n"
+                "  uv run run.py --camera free    an orbit view of the whole table\n"
+                "  uv run run.py --window         fly around it\n"
+            ),
+        )
     )
+
+
+def _add_arguments(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     parser.add_argument(
         "--camera",
         type=parse_camera,
-        default=None,
+        default="all",
         help="all, free, front, overhead or wrist (default: all)",
-    )
-    parser.add_argument(
-        "--size",
-        type=positive_square,
-        default=None,
-        metavar="N",
-        help=f"panel size in pixels, square (default: {DEFAULT_SIZE})",
-    )
-    parser.add_argument(
-        "--out",
-        default=None,
-        metavar="PATH",
-        help="where to write the image (default: world.png)",
     )
     parser.add_argument(
         "--window",
         action="store_true",
         help="open an interactive window instead of writing a file",
-    )
-    parser.add_argument(
-        "--check",
-        action="store_true",
-        help="prove the render matches figures/reconstruction_3views.png",
     )
     parser.add_argument(
         "--no-open",
@@ -623,69 +514,31 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
-    """Render the world, check it, or open a window on it."""
+    """Render the world, or open a window on it."""
     args = build_parser().parse_args()
 
     if args.window:
-        for flag, value in (("--size", args.size), ("--out", args.out)):
-            if value is not None:
-                die(
-                    f"{flag} only applies to rendered images.",
-                    "The window is resizable -- just drag its corner.",
-                )
-        if args.check:
-            die("--window and --check cannot be combined.", "Run them separately.")
         run_window()
         return
 
-    if args.check:
-        for flag, value in (
-            ("--camera", args.camera),
-            ("--size", args.size),
-            ("--out", args.out),
-        ):
-            if value is not None:
-                die(
-                    f"--check writes nothing, so {flag} has no effect.",
-                    f"Drop {flag}, or drop --check.",
-                )
-        do_check()
-        return
-
-    size = args.size if args.size is not None else DEFAULT_SIZE
-    camera = args.camera if args.camera is not None else "all"
-    target = resolve_out(args.out)
-
-    logger.info(
-        "GPU-DAD episode 44, frame 16 -- the frame in figures/reconstruction_3views.png"
-    )
-    if camera == "all":
-        for name in SHEET_ORDER:
-            filename, cam_name = SCENES[name]
-            logger.info(f"  {cam_name:<10} from assets/{filename}")
-        image = compose_sheet(panels=render_calibrated(size=size), size=size)
-    elif camera == "free":
+    target = output_path()
+    if args.camera == "all":
+        image = compose_sheet(panels=render_calibrated())
+    elif args.camera == "free":
         model, data = load(TRUTH_SCENE)
-        logger.info(f"  free camera from assets/{TRUTH_SCENE}")
-        image = render(model=model, data=data, size=size, camera=None)
+        image = render(model=model, data=data, camera=None)
     else:
-        filename, cam_name = SCENES[camera]
-        truth_model, truth_data = load(TRUTH_SCENE)
+        filename, cam_name = SCENES[args.camera]
+        _, truth_data = load(TRUTH_SCENE)
         model, data = load(filename)
         mirror_state(source=truth_data, model=model, data=data)
-        logger.info(f"  {cam_name:<10} from assets/{filename}")
-        image = render(model=model, data=data, size=size, camera=cam_name)
-        del truth_model
+        image = render(model=model, data=data, camera=cam_name)
 
     try:
         image.save(target)
     except OSError as error:
-        die(f"cannot write {target}: {error}", "Pick another folder with --out.")
+        die(f"cannot write {target}: {error}")
     logger.info(f"wrote {target}  ({image.width}x{image.height})")
-    logger.info("")
-    logger.info("Fly around it:  uv run run.py --window")
-    logger.info("Orbit view:     uv run run.py --camera free")
-    logger.info("Prove it matches the published figure:  uv run run.py --check")
     reveal(path=target, allowed=not args.no_open)
 
 

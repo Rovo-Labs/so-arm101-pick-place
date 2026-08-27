@@ -31,9 +31,9 @@ DERIVED FROM, and in one place included:
 
   INCLUDED from it: the six numbers in run.py's POSE_ARM constant. They are
   that dataset's recorded robot state at episode 44, frame 16, converted to
-  MuJoCo joint angles. They are what lets `run.py --check` reproduce
-  figures/reconstruction_3views.png pixel for pixel. Being derived from an
-  Apache-2.0 dataset, they are redistributed here under that same licence.
+  MuJoCo joint angles. They are what makes run.py reproduce
+  figures/reconstruction_3views.png. Being derived from an Apache-2.0
+  dataset, they are redistributed here under that same licence.
 
   NOT included: no image frames, no episode files, no trajectories, no
   actions, and no other recorded data from that dataset. POSE_CUBE and
