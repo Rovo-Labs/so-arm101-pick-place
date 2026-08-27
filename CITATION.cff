@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 type: software
 message: "If you use this world, please cite it as below."
-title: "gpudad_pickcube_world_reconstructed: a MuJoCo reconstruction of the GPU-DAD SO-101 pick-cube scene"
+title: "so-arm101-pick-place: a MuJoCo reconstruction of the GPU-DAD SO-101 pick-cube scene"
 authors:
   - family-names: Rasheed
     given-names: Armaan
@@ -18,7 +18,7 @@ authors:
 version: 1.0.0
 date-released: 2026-08-21
 license: Apache-2.0
-repository-code: "https://github.com/Rovo-Labs/gpu-dad-clone"
+repository-code: "https://github.com/Rovo-Labs/so-arm101-pick-place"
 abstract: >-
   A frozen, standalone MuJoCo scene reconstructing the environment in
   gpudad/so101_pick_cube. Ships three scenes, each colour-matched to that

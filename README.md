@@ -1,4 +1,4 @@
-# gpudad_pickcube_world_reconstructed -- static world
+# so-arm101-pick-place -- static world
 
 This repository is our clone of the environment behind
 [gpudad/so101_pick_cube](https://huggingface.co/datasets/gpudad/so101_pick_cube),
@@ -92,9 +92,9 @@ identical across all of them. To run a policy, drive ONE scene as the physics tr
 If you use this environment, please cite it:
 
     Rasheed A., Gallimore K., Subbiah V., Johnson E. (2026).
-    gpudad_pickcube_world_reconstructed: a MuJoCo reconstruction of the
+    so-arm101-pick-place: a MuJoCo reconstruction of the
     GPU-DAD SO-101 pick-cube scene (version 1.0.0).
-    URL: https://github.com/Rovo-Labs/gpu-dad-clone
+    URL: https://github.com/Rovo-Labs/so-arm101-pick-place
 
 Machine-readable metadata lives in [CITATION.cff](CITATION.cff) -- GitHub's
 "Cite this repository" button reads it directly. Released under Apache-2.0;
