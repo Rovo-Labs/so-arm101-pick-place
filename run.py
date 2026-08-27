@@ -200,7 +200,7 @@ def mirror_state(
 def render(
     model: mujoco.MjModel,
     data: mujoco.MjData,
-    camera: str | None,
+    camera: str,
 ) -> Image.Image:
     """Render one square image at SIZE."""
     # Widen the compiled model's offscreen buffer if a scene ever declares a
@@ -209,10 +209,7 @@ def render(
     model.vis.global_.offheight = max(model.vis.global_.offheight, SIZE)
     try:
         with mujoco.Renderer(model, height=SIZE, width=SIZE) as renderer:
-            if camera is None:
-                renderer.update_scene(data)
-            else:
-                renderer.update_scene(data, camera=camera)
+            renderer.update_scene(data, camera=camera)
             return Image.fromarray(renderer.render())
     except (ValueError, mujoco.FatalError) as error:
         die(f"the renderer refused a {SIZE}x{SIZE} image: {error}")
@@ -467,10 +464,10 @@ def parse_camera(raw: str) -> str:
             "fitted overhead view.",
             "Use --camera overhead.",
         )
-    if text not in {"all", "free", *SCENES}:
+    if text not in {"all", *SCENES}:
         die(
             f"there is no camera called '{raw}'.",
-            f"Choose one of: all, free, {', '.join(sorted(SCENES))}.",
+            f"Choose one of: all, {', '.join(sorted(SCENES))}.",
         )
     return text
 
@@ -486,7 +483,6 @@ def build_parser() -> argparse.ArgumentParser:
                 "examples:\n"
                 "  uv run run.py                  all three views -> world.png\n"
                 "  uv run run.py --camera front   just the front view\n"
-                "  uv run run.py --camera free    one wider shot of the whole table\n"
                 "  uv run run.py --window         fly around it\n"
             ),
         )
@@ -498,10 +494,7 @@ def _add_arguments(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
         "--camera",
         type=parse_camera,
         default="all",
-        help=(
-            "which view to save: all, front, overhead, wrist, or free for "
-            "one wider shot of the whole table (default: all)"
-        ),
+        help="which view to save: all, front, overhead or wrist (default: all)",
     )
     parser.add_argument(
         "--window",
@@ -527,9 +520,6 @@ def main() -> None:
     target = output_path()
     if args.camera == "all":
         image = compose_sheet(panels=render_calibrated())
-    elif args.camera == "free":
-        model, data = load(TRUTH_SCENE)
-        image = render(model=model, data=data, camera=None)
     else:
         filename, cam_name = SCENES[args.camera]
         _, truth_data = load(TRUTH_SCENE)
