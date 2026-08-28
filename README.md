@@ -1,10 +1,10 @@
-# so-arm101-pick-place -- static world
+# so-arm101-pick-place
 
-This repository is our clone of the environment behind
+This repository is our reproduction of the environment behind
 [gpudad/so101_pick_cube](https://huggingface.co/datasets/gpudad/so101_pick_cube),
 GPU-DAD's SO-101 pick-and-place data set. We rebuilt that scene in MuJoCo, and
 used the replica to generate a 1,000-episode pick-and-place dataset of our own:
-[DATASET NAME](INSERT LINK WHEN READY). Details below.
+rovolabs/so-arm101-pick-place [https://huggingface.co/datasets/rovolabs/so-arm101-pick-place]. Details below.
 
 ## The original Environment
 
@@ -43,8 +43,7 @@ MuJoCo's own viewer:
 
     python -m mujoco.viewer --mjcf=assets/scene_front.xml
 
-That gives you the scene as-loaded, without the recorded arm and cube pose that
-`run.py` applies.
+That gives you the scene as-loaded.
 
 ## The Dataset
 
@@ -58,7 +57,7 @@ success -- the cube ends up in the bin.
 | 400 | a SmolVLA policy trained on GPU-DAD's own data, acting in our replicated world |
 | 500 | our inverse-kinematics expert, acting in our replicated world |
 
-[DATASET NAME](INSERT LINK WHEN READY)
+rovolabs/so-arm101-pick-place [https://huggingface.co/datasets/rovolabs/so-arm101-pick-place]
 
 ## Environment Files
 
@@ -79,7 +78,7 @@ identical across all of them. To run a policy, drive ONE scene as the physics tr
 
 If you use this environment, please cite it:
 
-    Rasheed A., Gallimore K., Subbiah V., Johnson E. (2026).
+    Rasheed A., Gallimore K., Johnson E., Subbiah V. (2026).
     so-arm101-pick-place: a MuJoCo reconstruction of the
     GPU-DAD SO-101 pick-cube scene (version 1.0.0).
     URL: https://github.com/Rovo-Labs/so-arm101-pick-place
