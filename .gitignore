@@ -1,5 +1,7 @@
 .DS_Store
 world.png
+example.png
+example.gif
 .venv/
 __pycache__/
 .ruff_cache/

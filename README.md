@@ -59,6 +59,42 @@ success -- the cube ends up in the bin.
 
 rovolabs/so-arm101-pick-place [https://huggingface.co/datasets/rovolabs/so-arm101-pick-place]
 
+## The IK Expert
+
+`ik_expert.py` is the same controller that generated the 500
+inverse-kinematics episodes in the data set above. To watch it work:
+
+    uv run example.py
+
+It drops the cube and the bin somewhere new on the table, runs one whole
+pick-and-place attempt, and writes `example.gif` -- a recording of it from
+start to finish, every control step, from all three cameras side by side.
+
+| command | what it does |
+| --- | --- |
+| `uv run example.py` | a new random placement every time |
+| `uv run example.py --seed 7` | play this specific seed, every time |
+| `uv run example.py --camera wrist` | one camera only: `front`, `overhead` or `wrist` |
+
+Left alone it draws one of a million seeds -- 0 to 999,999 -- at random. That
+range is only what the random draw picks from: `--seed` takes **any whole
+number**, however large, and always produces that same placement.
+
+Every run says plainly whether the attempt worked, and prints the seed it used
+so any attempt worth showing someone can be replayed exactly:
+
+    SUCCESS  the cube ended up in the bin
+      placement seed 7   cube (0.175, +0.066)   bin (0.181, -0.061)   273 steps
+
+A failure is a real outcome rather than an error -- the expert drives through
+physics and can drop the cube -- so it is reported the same way, and says which
+phase it got to.
+
+The physics runs in `scene_front.xml` alone, and its state is mirrored into the
+other two scenes purely so each camera can be rendered from the scene it was
+colour-matched to -- the arrangement described under "Why there is More than
+One Environment File" below.
+
 ## Environment Files
 
 | file | what it is | MAE vs real (0-255) |
