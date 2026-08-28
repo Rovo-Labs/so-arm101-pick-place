@@ -4,7 +4,7 @@ This repository is our reproduction of the environment behind
 [gpudad/so101_pick_cube](https://huggingface.co/datasets/gpudad/so101_pick_cube),
 GPU-DAD's SO-101 pick-and-place data set. We rebuilt that scene in MuJoCo, and
 used the replica to generate a 1,000-episode pick-and-place dataset of our own:
-rovolabs/so-arm101-pick-place [https://huggingface.co/datasets/rovolabs/so-arm101-pick-place]. Details below.
+[rovolabs/so-arm101-pick-place](https://huggingface.co/datasets/rovolabs/so-arm101-pick-place). Details below.
 
 ## The original Environment
 
@@ -57,7 +57,7 @@ success -- the cube ends up in the bin.
 | 400 | a SmolVLA policy trained on GPU-DAD's own data, acting in our replicated world |
 | 500 | our inverse-kinematics expert, acting in our replicated world |
 
-rovolabs/so-arm101-pick-place [https://huggingface.co/datasets/rovolabs/so-arm101-pick-place]
+[rovolabs/so-arm101-pick-place](https://huggingface.co/datasets/rovolabs/so-arm101-pick-place)
 
 ## Environment Files
 
