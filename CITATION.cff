@@ -9,11 +9,11 @@ authors:
   - family-names: Gallimore
     given-names: Kilas
     affiliation: Rovo Labs
-  - family-names: Subbiah
-    given-names: Vishal
-    affiliation: Rovo Labs
   - family-names: Johnson
     given-names: Evonne
+    affiliation: Rovo Labs
+  - family-names: Subbiah
+    given-names: Vishal
     affiliation: Rovo Labs
 version: 1.0.0
 date-released: 2026-08-21
