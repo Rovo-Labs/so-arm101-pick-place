@@ -41,6 +41,6 @@ DERIVED FROM, and in one place included:
   placements for this world.
 
 The MuJoCo scene files (assets/scene_*.xml), run.py (except POSE_ARM, noted
-above), the camera and lighting fits, the floor textures and the documentation
+above), ik_expert.py, example.py, the camera and lighting fits, the floor textures and the documentation
 in this bundle are original work of this project and are released under the
 same Apache-2.0 License.
