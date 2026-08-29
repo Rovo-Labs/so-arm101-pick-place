@@ -66,22 +66,19 @@ inverse-kinematics episodes in the data set above. To watch it work:
 
     uv run example.py
 
-It drops the cube and the bin somewhere new on the table, runs one whole
-pick-and-place attempt, and writes `example.gif` -- a recording of it from
-start to finish, every control step, from all three cameras side by side.
+It runs one whole pick-and-place attempt, and writes `example.gif` -- a recording of it from
+start to finish from all three cameras side by side.
 
 | command | what it does |
 | --- | --- |
 | `uv run example.py` | a new random placement every time |
-| `uv run example.py --seed 7` | play this specific seed, every time |
+| `uv run example.py --seed 7` | plays the specific seed called |
 | `uv run example.py --camera wrist` | one camera only: `front`, `overhead` or `wrist` |
 
-Left alone it draws one of a million seeds -- 0 to 999,999 -- at random. That
-range is only what the random draw picks from: `--seed` takes **any whole
-number**, however large, and always produces that same placement.
+Without a flag it draws one of a million seeds -- 0 to 999,999 -- at random. `--seed` takes **any whole
+number** and always produces that same seed placement of the assets on the table.
 
-Every run says plainly whether the attempt worked, and prints the seed it used
-so any attempt worth showing someone can be replayed exactly:
+Every run says plainly whether the attempt worked, and prints the seed it used:
 
     SUCCESS  the cube ended up in the bin
       placement seed 7   cube (0.175, +0.066)   bin (0.181, -0.061)   273 steps
