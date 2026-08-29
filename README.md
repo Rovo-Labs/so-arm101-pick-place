@@ -87,11 +87,6 @@ A failure is a real outcome rather than an error -- the expert drives through
 physics and can drop the cube -- so it is reported the same way, and says which
 phase it got to.
 
-The physics runs in `scene_front.xml` alone, and its state is mirrored into the
-other two scenes purely so each camera can be rendered from the scene it was
-colour-matched to -- the arrangement described under "Why there is More than
-One Environment File" below.
-
 ## Environment Files
 
 | file | what it is | MAE vs real (0-255) |
