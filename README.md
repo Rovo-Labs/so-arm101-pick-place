@@ -1,4 +1,4 @@
-# so-arm101-pick-place
+# Reproduction and extension of GPU-DAD's SO-101 Pick-Cube Dataset with MuJoCo
 
 This repository is our reproduction of the environment behind
 [gpudad/so101_pick_cube](https://huggingface.co/datasets/gpudad/so101_pick_cube),
@@ -104,7 +104,7 @@ identical across all of them. To run a policy, drive ONE scene as the physics tr
 
 ## How to Cite
 
-If you use this environment, please cite it:
+If you use this work, please cite it:
 
 ```bibtex
 @software{so-arm101-pick-place_2026,
@@ -118,6 +118,7 @@ If you use this environment, please cite it:
 }
 ```
 
-Machine-readable metadata lives in [CITATION.cff](CITATION.cff) -- GitHub's
-"Cite this repository" button reads it directly. Released under Apache-2.0;
-see `LICENSE` and `NOTICE`.
+This repository itself is released under Apache-2.0; see `LICENSE` and
+`NOTICE`. It carries its own machine-readable citation in
+[CITATION.cff](CITATION.cff), which is what GitHub's "Cite this repository"
+button shows.
