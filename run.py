@@ -87,7 +87,7 @@ GUTTER = 16
 BAND = 36
 
 # --------------------------------------------------------------------------
-# The state below is GPU-DAD episode 44, frame 16 -- the frame shown in
+# The state below is GPU-DAD episode 188, frame 16 -- the frame shown in
 # figures/reconstruction_3views.png. It is recorded data, not a pose invented
 # for this script:
 #   POSE_ARM  = the dataset's recorded observation.state for that frame,
@@ -121,7 +121,7 @@ def die(problem: str, remedy: str = "") -> NoReturn:
 
 
 def apply_pose(model: mujoco.MjModel, data: mujoco.MjData) -> None:
-    """Put the world into the recorded episode-44 frame-16 state."""
+    """Put the world into the recorded episode-188 frame-16 state."""
     data.qpos[0:6] = POSE_ARM
     data.ctrl[:] = POSE_ARM  # the sts3215 servos are kp=998 position
     data.qpos[6:13] = POSE_CUBE  # actuators: without this mirror they yank
@@ -137,7 +137,7 @@ def apply_pose(model: mujoco.MjModel, data: mujoco.MjData) -> None:
 
 
 def load(filename: str) -> tuple[mujoco.MjModel, mujoco.MjData]:
-    """Compile a scene XML and pose it at the recorded episode-44 frame."""
+    """Compile a scene XML and pose it at the recorded episode-188 frame."""
     path = ASSETS / filename
     if not path.is_file():
         die(

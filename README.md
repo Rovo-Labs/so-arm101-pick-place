@@ -15,7 +15,7 @@ measured against frames from that dataset.
 
 ![The original scene from all three cameras](figures/original_3views.png)
 
-*Episode 44, frame 16 — from the original
+*Episode 188, frame 16 — from the original
 [gpudad/so101_pick_cube](https://huggingface.co/datasets/gpudad/so101_pick_cube) data set*
 
 ## The Replicated Environment
