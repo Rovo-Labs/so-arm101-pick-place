@@ -3,7 +3,7 @@
 This repository is our reproduction of the environment behind
 [gpudad/so101_pick_cube](https://huggingface.co/datasets/gpudad/so101_pick_cube),
 GPU-DAD's SO-101 pick-and-place data set. We rebuilt that scene in MuJoCo, and
-used the replica to generate a 1,000-episode pick-and-place dataset of our own:
+used the replica to generate a 2,000-episode pick-and-place dataset of our own:
 [rovolabs/so-arm101-pick-place](https://huggingface.co/datasets/rovolabs/so-arm101-pick-place). Details below.
 
 ## The original Environment
@@ -47,15 +47,17 @@ That gives you the scene as-loaded.
 
 ## The Dataset
 
-A companion dataset of **1,000 episodes** of the pick-and-place cube task,
-recorded entirely in this replicated environment. Every episode is a
-success -- the cube ends up in the bin.
+A companion dataset of **2,000 episodes** of the pick-and-place cube task,
+recorded entirely in this replicated environment. It contains 1,000 successful
+episodes, where the cube ends up in the bin, and 1,000 failed episodes retained
+as labelled negative examples.
 
-| episodes | controller |
-| --- | --- |
-| 100 | GPU-DAD's recorded action data, replayed in our replicated world |
-| 400 | a SmolVLA policy trained on GPU-DAD's own data, acting in our replicated world |
-| 500 | our inverse-kinematics expert, acting in our replicated world |
+| Episode range | Episodes | Controller | Success | Failure |
+| --- | --- | --- | --- | --- |
+| 0–99 | 100 | GPU-DAD's recorded action data, replayed in our replicated world | 100 | 0 |
+| 100–999 | 900 | Our inverse-kinematics expert, acting in our replicated world | 500 | 400 |
+| 1000–1999 | 1,000 | A SmolVLA policy trained on GPU-DAD's own data, acting in our replicated world | 400 | 600 |
+| **Total** | **2,000** | | **1,000** | **1,000** |
 
 [rovolabs/so-arm101-pick-place](https://huggingface.co/datasets/rovolabs/so-arm101-pick-place)
 
@@ -67,7 +69,7 @@ each one for 50 held out closed-loop attempts in the replicated environment.
 | Policy (visual environment / action profile) | Reached | Grasped | Lifted | Transported | Dropped in | Clean |
 | --- | --- | --- | --- | --- | --- | --- |
 | Base (Original Environment / Original Action Profile) | 50 | 49 | 38 | 32 | 29 | 27 (54%) |
-| Synthetic (Replicated Environment / Original Action Profile) | 50 | 50 | 34 | 30 | 30 | 29 (58%) |
+| Synthetic (Replicated Emanvironment / Original Action Profile) | 50 | 50 | 34 | 30 | 30 | 29 (58%) |
 | IK (Replicated Environment / IK Expert) | 50 | 50 | 37 | 35 | 33 | 30 (60%) |
 
 **The policies** differ only in the visual environment and action profile they were trained on, seed asset positions stayed consistent between the three datasets. The Base policy saw GPU-DAD's
@@ -80,7 +82,7 @@ finished without a fault along the way.
 
 ## The IK Expert
 
-`ik_expert.py` is the same controller that generated the 500
+`ik_expert.py` is the same controller that generated the 900
 inverse-kinematics episodes in the data set above. To watch it work:
 
     uv run example.py
