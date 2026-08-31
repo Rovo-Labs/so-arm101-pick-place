@@ -109,7 +109,7 @@ If you use this work, please cite it:
 ```bibtex
 @software{so-arm101-pick-place_2026,
   author = {Rasheed, Armaan and Gallimore, Kilas and Johnson, Evonne and Subbiah, Vishal},
-  license = {CC-BY-4.0},
+  license = {Apache-2.0},
   month = aug,
   title = {Reproduction and extension of {GPU-DAD}'s {SO-101} Pick-Cube Dataset with {MuJoCo}},
   url = {https://huggingface.co/datasets/rovolabs/so-arm101-pick-place},
