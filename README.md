@@ -132,8 +132,8 @@ If you use this work, please cite it:
   author = {Rasheed, Armaan and Gallimore, Kilas and Johnson, Evonne and Subbiah, Vishal},
   license = {Apache-2.0},
   month = aug,
-  title = {Reproduction and extension of {GPU-DAD}'s {SO-101} Pick-Cube Dataset with {MuJoCo}},
-  url = {https://huggingface.co/datasets/rovolabs/so-arm101-pick-place},
+  title = {{so-arm101-pick-place: a MuJoCo reconstruction of the GPU-DAD SO-101 pick-cube scene}},
+  url = {https://github.com/Rovo-Labs/so-arm101-pick-place},
   version = {1.0.0},
   year = {2026}
 }
