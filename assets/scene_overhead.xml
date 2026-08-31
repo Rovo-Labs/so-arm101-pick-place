@@ -1,4 +1,4 @@
-<!-- scene_overhead.xml -- Colour-matched to GPU-DAD's OVERHEAD camera.
+<!-- scene_overhead.xml: colour-matched to GPU-DAD's OVERHEAD camera.
      Fidelity: MAE 4.60 against the real footage.
      Floor tile size and phase are fitted to GPU-DAD's overhead lens.
      Needs (all alongside this file in assets/): so101_new_calib.xml, the 13 STL meshes, floor_checker.png -->

@@ -1,4 +1,4 @@
-<!-- scene_front.xml -- Colour-matched to GPU-DAD's FRONT camera.
+<!-- scene_front.xml: colour-matched to GPU-DAD's FRONT camera.
      Fidelity: MAE 10.58 against the real footage.
      The floor is raised 55mm and widened to 6km to frame that one view. Correct head-on, wrong from anywhere else.
      Needs (all alongside this file in assets/): so101_new_calib.xml, the 13 STL meshes, floor_checker_front.png -->
