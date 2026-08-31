@@ -29,16 +29,22 @@ DERIVED FROM, and in one place included:
   focal length, light and material colour in these scenes was fitted by
   measuring against frames from that dataset.
 
-  INCLUDED from it: the six numbers in run.py's POSE_ARM constant. They are
-  that dataset's recorded robot state at episode 44, frame 16, converted to
-  MuJoCo joint angles. They are what makes run.py reproduce
-  figures/reconstruction_3views.png. Being derived from an Apache-2.0
-  dataset, they are redistributed here under that same licence.
+  INCLUDED from it, both under that same Apache-2.0 licence:
 
-  NOT included: no image frames, no episode files, no trajectories, no
-  actions, and no other recorded data from that dataset. POSE_CUBE and
-  POSE_BIN in run.py are NOT from it -- they are this project's own fitted
-  placements for this world.
+    1. figures/original_3views.png. This is real imagery FROM that dataset:
+       three frames of episode 44, frame 16, as seen by its front, overhead
+       and wrist cameras, composited side by side. It is reproduced here so a
+       reader can see what the reconstruction is being compared against.
+
+    2. The six numbers in run.py's POSE_ARM constant, which are that dataset's
+       recorded robot state at that same frame, converted to MuJoCo joint
+       angles. They are what makes run.py reproduce
+       figures/reconstruction_3views.png.
+
+  NOT included: no episode files, no trajectories, no actions, and no other
+  recorded data from that dataset. figures/reconstruction_3views.png is OUR
+  render, not their imagery, and POSE_CUBE and POSE_BIN in run.py are this
+  project's own fitted placements for this world.
 
 The MuJoCo scene files (assets/scene_*.xml), run.py (except POSE_ARM, noted
 above), ik_expert.py, example.py, the camera and lighting fits, the floor textures and the documentation

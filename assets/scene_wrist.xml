@@ -1,4 +1,4 @@
-<!-- scene_wrist.xml -- Colour-matched to GPU-DAD's WRIST camera.
+<!-- scene_wrist.xml: colour-matched to GPU-DAD's WRIST camera.
      Fidelity: MAE 12.87 against the real footage.
      Deliberately dark and warm to match GPU-DAD's wrist lens, which sits inside the gripper.
      Needs (all alongside this file in assets/): so101_new_calib.xml, the 13 STL meshes, floor_checker.png -->

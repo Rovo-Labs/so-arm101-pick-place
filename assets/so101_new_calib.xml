@@ -1,4 +1,9 @@
 <?xml version="1.0" ?>
+<!-- MODIFIED BY ROVO LABS. This file is derived from so101-nexus-core
+     0.3.12 (Apache-2.0) and has been changed in three places: the robot
+     base position, the wrist camera pose and fovy, and meshdir. The exact
+     diff against upstream is recorded in NOTICE. -->
+<!-- Upstream provenance follows. -->
 <!-- Generated using onshape-to-robot -->
 <!-- Onshape https://cad.onshape.com/documents/7715cc284bb430fe6dab4ffd/w/4fd0791b683777b02f8d975a/e/826c553ede3b7592eb9ca800 -->
 <mujoco model="so101_new_calib">
