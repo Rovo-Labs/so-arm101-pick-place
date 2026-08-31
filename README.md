@@ -61,18 +61,17 @@ success -- the cube ends up in the bin.
 
 ## Results
 
-We trained the same small VLA policy on three combinations of data, then ran
-each one for 50 closed-loop attempts in the recreated environment.
+We fine-tuned the same smolVLA policy on three combinations of data, then ran
+each one for 50 held out closed-loop attempts in the replicated environment.
 
-| Policy (visual world / action profile) | Reached | Grasped | Lifted | Transported | Dropped in | Clean |
+| Policy (visual environment / action profile) | Reached | Grasped | Lifted | Transported | Dropped in | Clean |
 | --- | --- | --- | --- | --- | --- | --- |
-| B (GPU-DAD / GPU-DAD) | 50 | 49 | 38 | 32 | 29 | 27 (54%) |
-| S* (recreated world / GPU-DAD) | 50 | 50 | 34 | 30 | 30 | 29 (58%) |
-| IK (recreated world / IK expert) | 50 | 50 | 37 | 35 | 33 | 30 (60%) |
+| Base (Original Environment / Original Action Profile) | 50 | 49 | 38 | 32 | 29 | 27 (54%) |
+| Synthetic (Replicated Environment / Original Action Profile) | 50 | 50 | 34 | 30 | 30 | 29 (58%) |
+| IK (Replicated Environment / IK Expert) | 50 | 50 | 37 | 35 | 33 | 30 (60%) |
 
-**The policies** differ only in the data they were trained on. B saw GPU-DAD's
-images and GPU-DAD's actions. S\* saw our renders with GPU-DAD's actions. IK saw
-our renders with our IK expert's actions.
+**The policies** differ only in the visual environment and action profile they were trained on, seed asset positions stayed consistent between the three datasets. The Base policy saw GPU-DAD's
+images and GPU-DAD's actions. The Synthetic policy saw our replicated environment with GPU-DAD's actions. The IK policy saw our replicated environment with our IK expert's actions.
 
 **The stages are cumulative** -- an attempt has to clear each one to reach the
 next. The arm reached the cube, grasped it, lifted it clear of the table,
