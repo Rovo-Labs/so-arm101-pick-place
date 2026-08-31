@@ -106,10 +106,22 @@ identical across all of them. To run a policy, drive ONE scene as the physics tr
 
 If you use this environment, please cite it:
 
-    Rasheed A., Gallimore K., Johnson E., Subbiah V. (2026).
-    so-arm101-pick-place: a MuJoCo reconstruction of the
-    GPU-DAD SO-101 pick-cube scene (version 1.0.0).
-    URL: https://github.com/Rovo-Labs/so-arm101-pick-place
+> Rasheed, A., Gallimore, K., Johnson, E., & Subbiah, V. (2026).
+> so-arm101-pick-place: a MuJoCo reconstruction of the GPU-DAD SO-101
+> pick-cube scene (Version 1.0.0) [Computer software].
+> https://github.com/Rovo-Labs/so-arm101-pick-place
+
+```bibtex
+@software{Rasheed_so-arm101-pick-place_a_MuJoCo_2026,
+author = {Rasheed, Armaan and Gallimore, Kilas and Johnson, Evonne and Subbiah, Vishal},
+license = {Apache-2.0},
+month = aug,
+title = {{so-arm101-pick-place: a MuJoCo reconstruction of the GPU-DAD SO-101 pick-cube scene}},
+url = {https://github.com/Rovo-Labs/so-arm101-pick-place},
+version = {1.0.0},
+year = {2026}
+}
+```
 
 Machine-readable metadata lives in [CITATION.cff](CITATION.cff) -- GitHub's
 "Cite this repository" button reads it directly. Released under Apache-2.0;
