@@ -59,6 +59,26 @@ success -- the cube ends up in the bin.
 
 [rovolabs/so-arm101-pick-place](https://huggingface.co/datasets/rovolabs/so-arm101-pick-place)
 
+## Results
+
+We trained the same small VLA policy on three combinations of data, then ran
+each one for 50 closed-loop attempts in the recreated environment.
+
+| Policy (visual world / action profile) | Reached | Grasped | Lifted | Transported | Dropped in | Clean |
+| --- | --- | --- | --- | --- | --- | --- |
+| B (GPU-DAD / GPU-DAD) | 50 | 49 | 38 | 32 | 29 | 27 (54%) |
+| S* (recreated world / GPU-DAD) | 50 | 50 | 34 | 30 | 30 | 29 (58%) |
+| IK (recreated world / IK expert) | 50 | 50 | 37 | 35 | 33 | 30 (60%) |
+
+**The policies** differ only in the data they were trained on. B saw GPU-DAD's
+images and GPU-DAD's actions. S\* saw our renders with GPU-DAD's actions. IK saw
+our renders with our IK expert's actions.
+
+**The stages are cumulative** -- an attempt has to clear each one to reach the
+next. The arm reached the cube, grasped it, lifted it clear of the table,
+transported it over the bin, and dropped it in. Clean counts the attempts that
+finished without a fault along the way.
+
 ## The IK Expert
 
 `ik_expert.py` is the same controller that generated the 500
